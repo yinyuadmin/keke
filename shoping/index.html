@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+
+<head lang="en">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/font-awesom.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+
+<body>
+  <div class="ct-pageWrapper">
+    <main>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="widget">
+              <h2 class="widget-header">购物车</h2>
+              <div class="ct-cart"></div>
+            </div>
+          </div>
+          <div class="col-md-9">
+            <div class="row" id="row">
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <script src="js/shop.min.js"></script>
+    <script>
+    $.ajax({
+        url:'index.php',
+        type:'post',
+        dataType:'json',
+        success:function(data){
+            $.each(data, function(key, value){
+              $('#row').append(`
+                  <div class="col-sm-4">
+                    <div class="ct-product">
+                      <div class="image">
+                        <img src="images/${value['image']}" alt="">
+                      </div>
+                      <div class="inner">
+                        <a href="#" class="btn btn-motive ct-product-button">
+                          <i class="fa fa-shopping-cart"></i>
+                        </a>
+                        <h2 class="ct-product-title">${value['name']}</h2>
+                        <p class="ct-product-description">${value['describe']}</p>
+                        <span class="ct-product-price">${value['price']}</span>
+                      </div>
+                    </div>
+                  </div>
+              `);
+            })
+            $('body').ctshop({
+              currency: '$',
+              paypal: {
+                currency_code: 'EUR'
+              }
+            });
+        },error:function(){
+        alert(1);
+      }
+    });
+
+    </script>
+  </div>
+</body>
+
+</html>

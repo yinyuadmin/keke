@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="css/googleapis.css">
+  <link rel="stylesheet" href="css/styleLogin.css">
+</head>
+
+<body>
+  <div id="boxForm">
+    <h2 id="title">账号登入</h2>
+   <div id="form">
+    <input class='text' type='name' id="username" name='username' placeholder='username' required>
+    <br>
+    <input class='text' name='password' id="password" type='password' placeholder='Password' required>
+    <br>
+    <input id='rememberMe' name='rememberMe' type='checkbox'> <label>Remember me</label>
+    <br>
+    <button class="button" onclick="sub()">提交</button>
+  </div>
+</div>
+  </div>
+</body>
+<script src="js/jquery-3.2.1.js"></script>
+<script type="text/javascript">
+      function sub() {
+        $.ajax({
+            url:'login.php',
+            type:'post',
+            data:{
+                username:$('#username').val(),
+                password:$('#password').val()
+            },
+            dataType:'json',
+            success:function(data){
+                console.log(data);
+                if (data.state) {
+                    alert(data.msg);
+                    window.location.href = 'index.html';
+                } else {
+                    alert(data.msg);
+                }
+            }
+        });
+      }
+
+</script>
+</html>
